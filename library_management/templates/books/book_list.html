@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %} Book List {% endblock %}
+{% block content %}
+
+    <div class="container mt-4">
+        {% for book in books %}
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="card shadow" style="width: 100%">
+                    <div class="card-body">
+                        <h5 class="card-title">title- {{book.title}}</h5>
+                        <p class="card-text">publisher- {{book.publisher.name}}</p>
+                        <p class="card-text">branch- {{book.library_branch.city.city_name}}</p>
+                        {% for author in book.author.all %}
+                            {% if forloop.first %} 
+                                <p class="card-text">author_name- {{author.name}}</p>
+                            {% endif %}
+                        {% endfor %}
+
+                        <!-- get by related_name -->
+
+                        {% for other_book in book.publisher.book_publisher.all %}
+                            <p>title- {{book.title}}</p>
+                        {% endfor %}
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% empty %}
+            <p>No book found</p>
+
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

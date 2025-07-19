@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from library.models import Book, LibraryBranch,
+from library.models import Book, LibraryBranch, Member, IssuedBook
 from django.views.generic import ListView
 
 
@@ -15,3 +15,16 @@ class LibraryBranchView(ListView):
     template_name = 'branches/library_branches.html'
     context_object_name = 'branches'
     paginate_by = 10
+    
+class MemberView(ListView):
+    model = Member
+    template_name = 'members/members.html'
+    context_object_name = 'members'
+    paginate_by = 10
+    
+class MemberView(ListView):
+    model = Member
+    template_name = 'members/members.html'
+    context_object_name = 'members'
+    paginate_by = 10
+    

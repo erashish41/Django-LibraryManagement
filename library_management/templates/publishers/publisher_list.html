@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %} Publisher List {% endblock %}
+{% block content %}
+
+<div class="container">
+    <h3 class="text-center">Publisher List</h3>
+    <div class="row">
+        {% for publisher in publishers %}
+            <div class="col-md-3">
+                <div class="card shadow mb-4 border-primary" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">name- {{publisher.name}}</h5>
+                    <p class="card-title">address- {{publisher.address | truncatewords:3}}</p>
+
+                </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -7,7 +7,7 @@
     <div class="row">
         {% for member in members %}
             <div class="col-md-3">
-                <div class="card shadow mb-4 border-danger" style="width: 18rem;">
+                <div class="card shadow mb-4 border-success" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">name- {{member.user.username}}</h5>
                     <p class="card-title">address- {{member.address | truncatewords:3}}</p>

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %} Author List {% endblock %}
+{% block content %}
+
+<div class="container">
+    <h3 class="text-center">Author List</h3>
+    <div class="row">
+        {% for author in authors %}
+            <div class="col-md-3">
+                <div class="card shadow mb-4 border-success" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">name- {{author.name}}</h5>
+                    <p class="card-title">bio- {{author.bio | truncatewords:3}}</p>
+
+                </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

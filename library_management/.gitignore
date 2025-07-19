@@ -1,0 +1,37 @@
+# 💻 Ignore virtual environments
+env/
+venv/
+.venv/
+
+# 🧠 Python cache
+__pycache__/
+*.py[cod]
+
+# 📦 Ignore distribution files
+*.egg
+*.egg-info/
+dist/
+build/
+
+# 🔐 Secret files
+.env
+
+# 🛠 Django migrations
+*/migrations/
+*.sqlite3
+
+# 🗃 OS and IDE files
+.DS_Store
+.vscode/
+.idea/
+
+# 🌐 Static and media files (if collected or generated)
+staticfiles/
+static/
+media/
+
+# ✅ Test coverage and logs
+.coverage
+coverage.xml
+htmlcov/
+*.log

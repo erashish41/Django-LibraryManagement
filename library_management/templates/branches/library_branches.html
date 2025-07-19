@@ -1,21 +1,22 @@
 {% extends 'base.html' %}
-{% block title %} library Branch List {% endblock %}
+{% block title %} Library Branch List {% endblock %}
 {% block content %}
 
 <div class="container">
+    <h3 class="text-center">Library Branch List</h3>
     <div class="row">
-        <div class="col-md-3">
-            <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
+        {% for library in branches %}
+            <div class="col-md-3">
+                <div class="card shadow mb-4 border-danger" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">name- {{library.name}}</h5>
+                    <p class="card-title">city- {{library.city.city_name}}</p>
+                    <p class="card-title">phone- {{library.phone}}</p>
+                </div>
+                </div>
             </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
 
-{% endfor %}
+{% endblock %}

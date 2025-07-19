@@ -35,7 +35,7 @@ class Publisher(BaseMixin):
 
     
 class Author(BaseMixin):
-    name = models.CharField(max_length=100,null=True)
+    name = models.CharField(max_length=100, null=True)
     bio = models.TextField(max_length=500)
 
     def __str__(self):

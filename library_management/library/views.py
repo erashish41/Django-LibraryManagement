@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from library.models import Book, LibraryBranch, Member, IssuedBook, Author, Publisher
 from library.form import (BookCreateForm, LibraryBranchCreateForm, MemberCreateForm, IssuedBookCreateForm,
                           AuthorCreateForm,PublisherCreateForm)
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 
 
@@ -16,6 +16,25 @@ class BookListView(SuccessMessageMixin,CreateView,ListView):
     paginate_by = 10
     success_url = reverse_lazy('book_list')
     success_message = "New Book successfully added"
+    
+class BookDetailView(SuccessMessageMixin,DetailView, UpdateView):
+    model = Book
+    form_class = BookCreateForm
+    template_name = 'books/book_detail.html'
+    context_object_name = 'book'
+    success_message = "Book successfully updated"
+    
+    def get_object(self, queryset = None):
+        return get_object_or_404(Book, pk=self.kwargs.get('pk'))
+    
+    def get_success_url(self):
+        return reverse_lazy('book_detail',kwargs={'pk':self.object.pk})
+    
+    
+class BookDeleteView(SuccessMessageMixin,DeleteView):
+    model = Book
+    success_message = 'Book successfully deleted'
+    
     
 class LibraryBranchListView(SuccessMessageMixin,CreateView,ListView):
     model = LibraryBranch

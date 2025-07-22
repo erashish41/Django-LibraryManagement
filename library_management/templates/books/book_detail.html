@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+<title>{% block title %}Book details {% endblock %}</title>
+{% block content %}
+
+    <div class="container">
+        <h1 class="text-center">Book details</h1>
+        
+        <div class="row">
+            <div class="ol">
+                <div class="card shadow" style="width: 100%; height: 100%;">
+                    <div class="card-body">
+                        <h5 class="card-title">title- {{book.title}}</h5>
+                        <p class="card-text">isbn- {{book.isbn}}</p>
+                        <p class="card-text">category- {{book.category.name}}</p>
+                        <p class="card-text">publisher- {{book.publisher.name}}</p>
+                        {% for author in book.author.all %}
+                            <p class="card-text">author- {{author.name}}</p>
+                        {% endfor %}
+
+                        <div class="d-flex gap-2">
+                            <a href="{% url 'book_list' %}" class="btn btn-success">go back</a>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                updated this Book
+                            </button>
+
+                            
+
+                        </div>
+
+                        <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">updated this Book</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" action="{% url 'book_detail' book.pk %}">
+                                        {% csrf_token%}
+                                        {{form | crispy}}
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

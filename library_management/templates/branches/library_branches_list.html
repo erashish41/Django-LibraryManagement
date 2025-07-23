@@ -41,6 +41,13 @@
                     <h5 class="card-title">name- {{library.name}}</h5>
                     <p class="card-title">city- {{library.city.city_name}}</p>
                     <p class="card-title">phone- {{library.phone}}</p>
+                    <div class="d-flex gap-2">
+                        <a type="button" class="btn btn-primary" href="{% url 'branch_detail' library.pk %}">View details</a>
+                        <form method="post" action="{% url 'branch_delete' library.pk %}">
+                            {% csrf_token %}
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </div>
                 </div>
                 </div>
             </div>

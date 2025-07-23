@@ -45,6 +45,22 @@ class LibraryBranchListView(SuccessMessageMixin,CreateView,ListView):
     success_url = reverse_lazy('branch_list')
     success_message = "New Library Branch successfully added"
     
+class LibraryBranchDetailView(SuccessMessageMixin,DetailView,UpdateView):
+    model = LibraryBranch
+    form_class = LibraryBranchCreateForm
+    template_name = 'branches/library_branch_detail.html'
+    context_object_name = 'branch'
+    success_message = 'Library Branch successfully updated'
+    
+    # def get_success_url(self):
+    #     return reverse_lazy('branch_list',kwargs = {'pk': self.object.pk})
+    
+class LibraryBranchDeleteView(SuccessMessageMixin,DeleteView):
+    model = LibraryBranch
+    success_url = reverse_lazy('branch_list')
+    success_message = 'Library Branch successfully deleted'
+
+    
 class MemberListView(SuccessMessageMixin,CreateView,ListView):
     model = Member
     template_name = 'members/member_list.html'

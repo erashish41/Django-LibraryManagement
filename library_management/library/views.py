@@ -33,6 +33,7 @@ class BookDetailView(SuccessMessageMixin,DetailView, UpdateView):
     
 class BookDeleteView(SuccessMessageMixin,DeleteView):
     model = Book
+    success_url = reverse_lazy('book_list')
     success_message = 'Book successfully deleted'
     
     

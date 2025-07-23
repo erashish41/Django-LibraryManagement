@@ -24,6 +24,10 @@
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 updated this Book
                             </button>
+                            <form method="post" action="{% url 'book_delete' book.pk %}">
+                                {% csrf_token %}
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
 
                             
 

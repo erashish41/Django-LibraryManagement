@@ -41,7 +41,17 @@
                 <div class="card shadow mb-4 border-primary" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">name- {{publisher.name}}</h5>
-                    <p class="card-title">address- {{publisher.address | truncatewords:3}}</p>
+                    <p class="card-text">address- {{publisher.address | truncatewords:3}}</p>
+
+
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'publisher_detail' publisher.pk %}" type="button" class="btn btn-primary">View details</a>
+                        <form method="post" action="{% url 'publisher_delete' publisher.pk %}">
+                            {% csrf_token %}
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </div>
+                        
 
                 </div>
                 </div>

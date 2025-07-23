@@ -133,6 +133,7 @@ class IssuedBookDeleteView(SuccessMessageMixin,DeleteView):
     success_url = reverse_lazy('issuedbooks_list')
     success_message = "Issued Books successfully deleted"
     
+    
 class AuthorListView(SuccessMessageMixin,CreateView,ListView):
     model = Author
     template_name = 'authors/author_list.html'
@@ -142,6 +143,32 @@ class AuthorListView(SuccessMessageMixin,CreateView,ListView):
     success_url = reverse_lazy('authors_list')
     success_message = "New Author successfully added"
     
+    
+class AuthorDetailView(SuccessMessageMixin,DetailView,UpdateView):
+    model = Author
+    form_class = AuthorCreateForm
+    context_object_name = 'author'
+    template_name = 'authors/author_detail.html'
+    success_message = "Author successfully updated"
+    
+    def get_success_url(self):
+        return reverse_lazy('author_detail', kwargs={'pk',self.object.pk})
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = self.get_form()
+        
+        if 'form' not in context:
+            context['form'] = form
+        return context
+    
+
+class AuthorDeleteView(SuccessMessageMixin,DeleteView):
+    model = IssuedBook
+    success_url = reverse_lazy('authors_list')
+    success_message = "Author successfully deleted"
+    
+    
 class PublisherListView(SuccessMessageMixin,CreateView,ListView):
     model = Publisher
     template_name = 'publishers/publisher_list.html'
@@ -150,4 +177,28 @@ class PublisherListView(SuccessMessageMixin,CreateView,ListView):
     form_class = PublisherCreateForm
     success_url = reverse_lazy('publisher_list')
     success_message = "New Publisher successfully added"
+    
+    
+class PublisherDetailView(SuccessMessageMixin,DetailView,UpdateView):
+    model = Publisher
+    form_class = PublisherCreateForm
+    context_object_name = 'publisher'
+    template_name = 'publishers/publisher_detail.html'
+    success_message = "Publisher Books successfully updated"
+    
+    def get_success_url(self):
+        return reverse_lazy('publisher_detail', kwargs={'pk',self.object.pk})
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = self.get_form()
+        
+        if 'form' not in context:
+            context['form'] = form
+        return context
+    
+class PublisherDeleteView(SuccessMessageMixin,DeleteView):
+    model = Publisher
+    success_url = reverse_lazy('publisher_list')
+    success_message = "Publisher successfully deleted"
     

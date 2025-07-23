@@ -40,9 +40,17 @@
                 <div class="card shadow mb-4 border-primary" style="width: 100%">
                     <div class="card-body">
                         <h5 class="card-title">user- {{member.user.username}}</h5>
-                        <h5 class="card-title">address- {{member.address}}</h5>
-                        <h5 class="card-title">phone- {{member.phone}}</h5>
-                        <h5 class="card-title">city- {{member.city.city_name}}</h5>
+                        <p class="card-title">address- {{member.address}}</p>
+                        <p class="card-title">phone- {{member.phone}}</p>
+                        <p class="card-title">city- {{member.city.city_name}}</p>
+
+                        <div class="d-flex gap-2">
+                            <a class="btn btn-primary" href="{% url 'member_detail' member.pk %}"> View detail </a>
+                            <form method="post" action="{% url 'member_delete' member.pk %}">
+                                {% csrf_token %}
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

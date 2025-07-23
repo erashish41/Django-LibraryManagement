@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+<title>{% block title %} Member details {% endblock %}</title>
+{% block content %} 
+    <div class="container">
+        <div class="row">
+            <div class="col">
+               <div class="card shadow" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">user- {{member.user.username}}</h5>
+                        <p class="card-text">{{member.address}}</p>
+                        <p class="card-text">phone- {{member.phone}}</p>
+                        <p class="card-text">city- {{member.city.city_name}}</p>
+
+                        <h5>Issued Books by Member</h5>
+                        {% if member.issued_books.all %}
+                            {% for issued_book in member.issued_books.all %}
+                                <p class="card-text">Book: {{ issued_book.book.title }}</p>
+                                <p class="card-text">Issued on: {{ issued_book.issue_date }}</p>
+                                <p class="card-text">Due on: {{ issued_book.due_date }}</p>
+                                <hr>
+                            {% endfor %}
+                        {% else %}
+                            <p class="card-text">No books issued.</p>
+                        {% endif %}
+
+
+                        <div class="d-flex gap-2">
+                            <a class="btn btn-primary" href="{% url 'member_list' %}">go back</a>
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                update Member details
+                            </button>
+
+                            <form method="post" action="{% url 'member_delete' member.pk %}">
+                                {% csrf_token %}
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+
+                            
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">update Member details</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="{% url 'member_detail' member.pk %}">
+                            {% csrf_token %}
+                            {{ form | crispy }}
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </form>
+                    </div>
+
+
+                    </div>
+                </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

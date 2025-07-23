@@ -17,6 +17,7 @@ class BookListView(SuccessMessageMixin,CreateView,ListView):
     success_url = reverse_lazy('book_list')
     success_message = "New Book successfully added"
     
+    
 class BookDetailView(SuccessMessageMixin,DetailView, UpdateView):
     model = Book
     form_class = BookCreateForm
@@ -46,6 +47,7 @@ class LibraryBranchListView(SuccessMessageMixin,CreateView,ListView):
     success_url = reverse_lazy('branch_list')
     success_message = "New Library Branch successfully added"
     
+
 class LibraryBranchDetailView(SuccessMessageMixin,DetailView,UpdateView):
     model = LibraryBranch
     form_class = LibraryBranchCreateForm
@@ -55,6 +57,7 @@ class LibraryBranchDetailView(SuccessMessageMixin,DetailView,UpdateView):
     
     # def get_success_url(self):
     #     return reverse_lazy('branch_list',kwargs = {'pk': self.object.pk})
+    
     
 class LibraryBranchDeleteView(SuccessMessageMixin,DeleteView):
     model = LibraryBranch
@@ -71,10 +74,30 @@ class MemberListView(SuccessMessageMixin,CreateView,ListView):
     success_url = reverse_lazy('member_list')
     success_message = "New Member successfully added"
     
-    # i want member default
-    def get_initial(self):
-        data_fixed = super().get_initial()
-
+class MemberDetailView(SuccessMessageMixin,DetailView,UpdateView):
+    model = Member
+    form_class = MemberCreateForm
+    template_name = 'members/member_detail.html'
+    context_object_name = 'member'
+    success_message = "Member successfully updated"
+    
+    def get_success_url(self):
+        return reverse_lazy('member_detail',kwargs={'pk':self.object.pk})
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = self.get_form()
+        
+        if 'form' not in context:
+            context['form'] = form
+        return context
+    
+    
+class MemberDeleteView(SuccessMessageMixin,DeleteView):
+    model = Member
+    success_url = reverse_lazy('member_list')
+    success_message = "Member successfully deleted"
+    
         
 class IssuedBookListView(SuccessMessageMixin,CreateView,ListView):
     model = IssuedBook

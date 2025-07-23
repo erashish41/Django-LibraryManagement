@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-               <div class="card shadow" style="width: 18rem;">
+               <div class="card shadow" style="width: 50rem;">
                     <div class="card-body">
                         <h5 class="card-title">user- {{member.user.username}}</h5>
                         <p class="card-text">{{member.address}}</p>
@@ -27,7 +27,6 @@
 
                         <div class="d-flex gap-2">
                             <a class="btn btn-primary" href="{% url 'member_list' %}">go back</a>
-
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 update Member details
@@ -36,6 +35,9 @@
                             <form method="post" action="{% url 'member_delete' member.pk %}">
                                 {% csrf_token %}
                                 <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+
+                            
                             </form>
 
                             

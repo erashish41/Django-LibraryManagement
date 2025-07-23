@@ -1,6 +1,7 @@
 from django.urls import path
 from library.views import (BookListView, BookDetailView, BookDeleteView, LibraryBranchListView, LibraryBranchDetailView, LibraryBranchDeleteView,
-                           MemberListView, MemberDetailView, MemberDeleteView, IssuedBookListView, AuthorListView, PublisherListView,
+                           MemberListView, MemberDetailView, MemberDeleteView, IssuedBookListView, IssuedBookDetailView, IssuedBookDeleteView,
+                           AuthorListView, PublisherListView,
                             )
 
 urlpatterns = [
@@ -17,6 +18,9 @@ urlpatterns = [
     path('members/<uuid:pk>/delete',MemberDeleteView.as_view(),name='member_delete'),
     
     path('issuedbooks/',IssuedBookListView.as_view(),name='issuedbooks_list'),
+    path('issuedbooks/<uuid:pk>/',IssuedBookDetailView.as_view(),name='issuedbook_detail'),
+    path('issuedbooks/<uuid:pk>/delete',IssuedBookDeleteView.as_view(),name='issuedbook_delete'),
+    
     path('authors/',AuthorListView.as_view(),name='authors_list'),
     path('publishers/',PublisherListView.as_view(),name='publisher_list'),
 ]

@@ -3,10 +3,12 @@
 <title>{% block title %} Member details {% endblock %}</title>
 {% block content %} 
     <div class="container">
+        <h2>Member details</h2>
         <div class="row">
             <div class="col">
-               <div class="card shadow" style="width: 50rem;">
+                <div class="card shadow" style="width: 50rem;">
                     <div class="card-body">
+
                         <h5 class="card-title">user- {{member.user.username}}</h5>
                         <p class="card-text">{{member.address}}</p>
                         <p class="card-text">phone- {{member.phone}}</p>

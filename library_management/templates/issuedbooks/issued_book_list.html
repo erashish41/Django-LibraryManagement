@@ -11,7 +11,36 @@
         Add new Issued Book
     </button>
 
-    <!-- Modal -->
+    
+
+    <div class="row">
+        {% for issuedbook in issuedbooks %}
+            <div class="col-md-3">
+                <div class="card shadow mb-4 border-danger" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">member- {{issuedbook.member.user.username}}</h5>
+                    <p class="card-title">issue_date- {{issuedbook.issue_date}}</p>
+                    <p class="card-title">due_date- {{issuedbook.due_date}}</p>
+                    <p class="card-title">return_date- {{issuedbook.return_date}}</p>
+                    <p class="card-title">book- {{issuedbook.book.title}}</p>
+
+                    <div class="d-flex gap-2">
+                            <a href="{% url 'issuedbook_detail' issuedbook.pk %}" type="button" class="btn btn-primary">View details</a>
+                            <form method="post" action="{% url 'issuedbook_delete' issuedbook.pk %}">
+                                {% csrf_token %}
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+                        </div>
+                        
+
+                </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -33,23 +62,5 @@
         </div>
     </div>
     </div>
-
-    <div class="row">
-        {% for issuedbook in issuedbooks %}
-            <div class="col-md-3">
-                <div class="card shadow mb-4 border-danger" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">member- {{issuedbook.member.user.username}}</h5>
-                    <p class="card-title">issue_date- {{issuedbook.issue_date}}</p>
-                    <p class="card-title">due_date- {{issuedbook.due_date}}</p>
-                    <p class="card-title">return_date- {{issuedbook.return_date}}</p>
-                    <p class="card-title">title- {{issuedbook.book.title}}</p>
-
-                </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-</div>
 
 {% endblock %}

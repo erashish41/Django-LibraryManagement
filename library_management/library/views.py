@@ -152,11 +152,13 @@ class AuthorDetailView(SuccessMessageMixin,DetailView,UpdateView):
     success_message = "Author successfully updated"
     
     def get_success_url(self):
-        return reverse_lazy('author_detail', kwargs={'pk',self.object.pk})
+        print(">>>>>>>>>>self.kwargs",self.kwargs)
+        return reverse_lazy('author_detail', kwargs={'pk': self.object.pk})
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         form = self.get_form()
+        print(">>>>>>>>>form 1", form)
         
         if 'form' not in context:
             context['form'] = form
@@ -164,7 +166,7 @@ class AuthorDetailView(SuccessMessageMixin,DetailView,UpdateView):
     
 
 class AuthorDeleteView(SuccessMessageMixin,DeleteView):
-    model = IssuedBook
+    model = Author
     success_url = reverse_lazy('authors_list')
     success_message = "Author successfully deleted"
     

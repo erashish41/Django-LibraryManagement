@@ -117,7 +117,7 @@ class IssuedBookDetailView(SuccessMessageMixin,DetailView,UpdateView):
     success_message = "Issued Books successfully updated"
     
     def get_success_url(self):
-        return reverse_lazy('issued_book_detail', kwargs={'pk',self.object.pk})
+        return reverse_lazy('issued_book_detail', kwargs={'pk':self.object.pk})
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -189,7 +189,7 @@ class PublisherDetailView(SuccessMessageMixin,DetailView,UpdateView):
     success_message = "Publisher Books successfully updated"
     
     def get_success_url(self):
-        return reverse_lazy('publisher_detail', kwargs={'pk',self.object.pk})
+        return reverse_lazy('publisher_detail', kwargs={'pk':self.object.pk})
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

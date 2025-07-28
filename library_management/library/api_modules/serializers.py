@@ -29,7 +29,7 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = "__all__"
         
-class libraryBranchSerializer(serializers.ModelSerializer):
+class LibraryBranchSerializer(serializers.ModelSerializer):
     class Meta:
         model = LibraryBranch
         fields = "__all__"

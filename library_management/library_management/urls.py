@@ -22,4 +22,6 @@ urlpatterns = [
     path('library/', include('library.urls')),
     
     path('api-auth/', include('rest_framework.urls', namespace= 'rest_framework')),
+    
+    path('api/v1/', include('library.api_modules.urls')),
 ]

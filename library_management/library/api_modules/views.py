@@ -1,5 +1,10 @@
 from rest_framework import generics
+from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
 from django.shortcuts import get_object_or_404
+
 
 from library.models import Book, LibraryBranch, Member, IssuedBook, Author, Publisher
 from library.api_modules.serializers import IssuedBookSerializer, MemberSerializer, BookSerializer, AuthorSerializer, CategorySerializer, LibraryBranchSerializer, CitySerializer
@@ -12,15 +17,6 @@ class ListCreateIssuedBook(generics.ListCreateAPIView):
 class RetrieveUpdateDestroyIssuedBook(generics.RetrieveUpdateDestroyAPIView):
     queryset = IssuedBook.objects.all()
     serializer_class = IssuedBookSerializer
-
-class ListCreateMember(generics.ListCreateAPIView):
-    queryset = Member.objects.all()
-    serializer_class = MemberSerializer
-    
-class RetrieveUpdateDestroyMember(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Member.objects.all()
-    serializer_class = MemberSerializer
-    
 
 class ListCreateBook(generics.ListCreateAPIView):
     queryset = Book.objects.all()
@@ -41,11 +37,29 @@ class RetrieveUpdateDestroyBook(generics.RetrieveUpdateDestroyAPIView):
         return get_object_or_404(self.get_queryset(),
                                 issued_records__id = self.kwargs.get('issuedbook_pk'),
                                 pk = self.kwargs.get('pk'))
-
-class ListCreateLibraryBranch(generics.ListCreateAPIView):
-    queryset = LibraryBranch.objects.all()
-    serializer_class = LibraryBranchSerializer
+        
+class ListCreateMember(generics.ListCreateAPIView):
+    queryset = Member.objects.all()
+    serializer_class = MemberSerializer
     
-class RetrieveUpdateDestroyLibraryBranch(generics.RetrieveUpdateDestroyAPIView):
-    queryset = LibraryBranch.objects.all()
-    serializer_class = LibraryBranchSerializer
+class RetrieveUpdateDestroyMember(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Member.objects.all()
+    serializer_class = MemberSerializer
+    
+# for ViewSet
+class IssuedBookViewSet(viewsets.ModelViewSet):
+    queryset = IssuedBook.objects.all()
+    serializer_class = IssuedBookSerializer
+    
+    @action(methods=['get'],detail=True)
+    def books(self,request,pk=None):
+        issued_book = self.get_object()
+        print(">>>>>>>>",issued_book)
+        print(">>>>>>1>>",self.get_object())
+        serializer = BookSerializer(issued_book.book)
+        return Response(serializer.data)
+    
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    

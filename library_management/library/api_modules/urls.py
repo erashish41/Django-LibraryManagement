@@ -16,11 +16,11 @@ router.register(r'books',BookViewSet)
 urlpatterns = [
     path('v2/', include(router.urls)),
     
-    path('issuedbooks/',ListCreateIssuedBook.as_view(),name='issuedbook_list'),
-    path('issuedbooks/<uuid:pk>/',RetrieveUpdateDestroyIssuedBook.as_view(),name='issuedbook_detail'),
+    path('api/issuedbooks/',ListCreateIssuedBook.as_view(),name='api_issuedbook_list'),
+    path('api/issuedbooks/<uuid:pk>/',RetrieveUpdateDestroyIssuedBook.as_view(),name='api_issuedbook_detail'),
     
-    path('issuedbooks/<uuid:issuedbook_pk>/books/',ListCreateBook.as_view(),name='book_list'),
-    path('issuedbooks/<uuid:issuedbook_pk>/books/<uuid:pk>/',RetrieveUpdateDestroyBook.as_view(),name='book_detail'),
+    path('api/issuedbooks/<uuid:issuedbook_pk>/books/',ListCreateBook.as_view(),name='api_book_list'),
+    path('api/issuedbooks/<uuid:issuedbook_pk>/books/<uuid:pk>/',RetrieveUpdateDestroyBook.as_view(),name='api_book_detail'),
 
 
 ]

@@ -3,6 +3,8 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from rest_framework import mixins
+
 from django.shortcuts import get_object_or_404
 
 
@@ -59,7 +61,11 @@ class IssuedBookViewSet(viewsets.ModelViewSet):
         serializer = BookSerializer(issued_book.book)
         return Response(serializer.data)
     
-class BookViewSet(viewsets.ModelViewSet):
+class BookViewSet(mixins.CreateModelMixin,
+                   mixins.RetrieveModelMixin,
+                   mixins.UpdateModelMixin,
+                   mixins.DestroyModelMixin,
+                   viewsets.GenericViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     

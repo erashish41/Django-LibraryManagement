@@ -8,6 +8,34 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 
 # Create your views here.
+class IssuedBookListView(SuccessMessageMixin,CreateView,ListView):
+    model = IssuedBook
+    template_name = 'issuedbooks/issued_book_list.html'
+    context_object_name = 'issuedbooks'
+    paginate_by = 10
+    form_class = IssuedBookCreateForm
+    success_url = reverse_lazy('issuedbooks_list')
+    success_message = "New Issued Books successfully added"
+    
+
+class IssuedBookDetailView(SuccessMessageMixin,DetailView,UpdateView):
+    model = IssuedBook
+    form_class = IssuedBookCreateForm
+    context_object_name = 'issuedbook'
+    template_name = 'issuedbooks/issued_book_detail.html'
+    success_message = "Issued Books successfully updated"
+    
+    def get_success_url(self):
+        return reverse_lazy('issued_book_detail', kwargs={'pk':self.object.pk})
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = self.get_form()
+        
+        if 'form' not in context:
+            context['form'] = form
+        return context
+    
 class BookListView(SuccessMessageMixin,CreateView,ListView):
     model = Book
     form_class = BookCreateForm
@@ -99,33 +127,6 @@ class MemberDeleteView(SuccessMessageMixin,DeleteView):
     success_message = "Member successfully deleted"
     
         
-class IssuedBookListView(SuccessMessageMixin,CreateView,ListView):
-    model = IssuedBook
-    template_name = 'issuedbooks/issued_book_list.html'
-    context_object_name = 'issuedbooks'
-    paginate_by = 10
-    form_class = IssuedBookCreateForm
-    success_url = reverse_lazy('issuedbooks_list')
-    success_message = "New Issued Books successfully added"
-    
-
-class IssuedBookDetailView(SuccessMessageMixin,DetailView,UpdateView):
-    model = IssuedBook
-    form_class = IssuedBookCreateForm
-    context_object_name = 'issuedbook'
-    template_name = 'issuedbooks/issued_book_detail.html'
-    success_message = "Issued Books successfully updated"
-    
-    def get_success_url(self):
-        return reverse_lazy('issued_book_detail', kwargs={'pk':self.object.pk})
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        form = self.get_form()
-        
-        if 'form' not in context:
-            context['form'] = form
-        return context
     
 
 class IssuedBookDeleteView(SuccessMessageMixin,DeleteView):

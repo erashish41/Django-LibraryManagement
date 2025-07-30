@@ -5,6 +5,10 @@ from library.views import (BookListView, BookDetailView, BookDeleteView, Library
                             )
 
 urlpatterns = [
+    path('issuedbooks/',IssuedBookListView.as_view(),name='issuedbooks_list'),
+    path('issuedbooks/<uuid:pk>/',IssuedBookDetailView.as_view(),name='issuedbook_detail'),
+    path('issuedbooks/<uuid:pk>/delete',IssuedBookDeleteView.as_view(),name='issuedbook_delete'),
+    
     path('books/',BookListView.as_view(),name='book_list'),
     path('books/<uuid:pk>/',BookDetailView.as_view(),name='book_detail'),
     path('books/<uuid:pk>/delete',BookDeleteView.as_view(),name='book_delete'),
@@ -17,9 +21,6 @@ urlpatterns = [
     path('members/<uuid:pk>/',MemberDetailView.as_view(),name='member_detail'),
     path('members/<uuid:pk>/delete',MemberDeleteView.as_view(),name='member_delete'),
     
-    path('issuedbooks/',IssuedBookListView.as_view(),name='issuedbooks_list'),
-    path('issuedbooks/<uuid:pk>/',IssuedBookDetailView.as_view(),name='issuedbook_detail'),
-    path('issuedbooks/<uuid:pk>/delete',IssuedBookDeleteView.as_view(),name='issuedbook_delete'),
     
     path('authors/',AuthorListView.as_view(),name='authors_list'),
     path('authors/<uuid:pk>',AuthorDetailView.as_view(),name='author_detail'),

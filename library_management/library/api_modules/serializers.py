@@ -2,20 +2,19 @@ from rest_framework import serializers
 from library.models import (IssuedBook, Member, Book, Author, Publisher,
                             Category, LibraryBranch, City)
 
-class IssuedBookSerializer(serializers.ModelSerializer):
+        
+class CitySerializer(serializers.ModelSerializer):
     class Meta:
-        model = IssuedBook
+        model = City
         fields = "__all__"
         
-class MemberSerializer(serializers.ModelSerializer):
+class LibraryBranchSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Member
+        model = LibraryBranch
         fields = "__all__"
-        
-        
-class BookSerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Book
+        model = Category
         fields = "__all__"
         
 class AuthorSerializer(serializers.ModelSerializer):
@@ -23,18 +22,21 @@ class AuthorSerializer(serializers.ModelSerializer):
         model = Author
         fields = "__all__"
         
-        
-class CategorySerializer(serializers.ModelSerializer):
+class MemberSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Category
+        model = Member
         fields = "__all__"
         
-class LibraryBranchSerializer(serializers.ModelSerializer):
+class BookSerializer(serializers.ModelSerializer):
     class Meta:
-        model = LibraryBranch
+        model = Book
         fields = "__all__"
         
-class CitySerializer(serializers.ModelSerializer):
+class IssuedBookSerializer(serializers.ModelSerializer):
+    book = serializers.HyperlinkedRelatedField(
+        queryset = Book.objects.all(),
+        view_name = 'book-detail'
+    )
     class Meta:
-        model = City
+        model = IssuedBook
         fields = "__all__"

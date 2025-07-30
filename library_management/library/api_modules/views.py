@@ -54,11 +54,19 @@ class IssuedBookViewSet(viewsets.ModelViewSet):
     serializer_class = IssuedBookSerializer
     
     @action(methods=['get'],detail=True)
-    def books(self,request,pk=None):
+    def book(self,request,pk=None):
+        self.pagination_class.page_size = 1
+        books = BookSerializer.object.filter(book_id='pk')
+        
+        page = self.paginate_queryset(books)
+        
+        if page is not None:
+            serializer = BookSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        
         issued_book = self.get_object()
-        print(">>>>>>>>",issued_book)
-        print(">>>>>>1>>",self.get_object())
-        serializer = BookSerializer(issued_book.book)
+        serializer = BookSerializer(books,many=True)
+        
         return Response(serializer.data)
     
 class BookViewSet(mixins.CreateModelMixin,

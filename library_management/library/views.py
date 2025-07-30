@@ -17,7 +17,6 @@ class IssuedBookListView(SuccessMessageMixin,CreateView,ListView):
     success_url = reverse_lazy('issuedbooks_list')
     success_message = "New Issued Books successfully added"
     
-
 class IssuedBookDetailView(SuccessMessageMixin,DetailView,UpdateView):
     model = IssuedBook
     form_class = IssuedBookCreateForm

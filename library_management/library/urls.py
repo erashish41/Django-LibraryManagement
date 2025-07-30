@@ -21,7 +21,6 @@ urlpatterns = [
     path('members/<uuid:pk>/',MemberDetailView.as_view(),name='member_detail'),
     path('members/<uuid:pk>/delete',MemberDeleteView.as_view(),name='member_delete'),
     
-    
     path('authors/',AuthorListView.as_view(),name='authors_list'),
     path('authors/<uuid:pk>',AuthorDetailView.as_view(),name='author_detail'),
     path('authors/<uuid:pk>/delete',AuthorDeleteView.as_view(),name='author_delete'),

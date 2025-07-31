@@ -2,6 +2,7 @@ from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework import permissions
 
 from rest_framework import mixins
 
@@ -50,6 +51,7 @@ class RetrieveUpdateDestroyMember(generics.RetrieveUpdateDestroyAPIView):
     
 # for ViewSet
 class IssuedBookViewSet(viewsets.ModelViewSet):
+    permission_classes = (permissions.DjangoModelPermissions)
     queryset = IssuedBook.objects.all()
     serializer_class = IssuedBookSerializer
     

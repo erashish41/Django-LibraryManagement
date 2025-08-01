@@ -40,20 +40,25 @@ class RetrieveUpdateDestroyBook(generics.RetrieveUpdateDestroyAPIView):
         return get_object_or_404(self.get_queryset(),
                                 issued_records__id = self.kwargs.get('issuedbook_pk'),
                                 pk = self.kwargs.get('pk'))
-        
-class ListCreateMember(generics.ListCreateAPIView):
-    queryset = Member.objects.all()
-    serializer_class = MemberSerializer
-    
-class RetrieveUpdateDestroyMember(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Member.objects.all()
-    serializer_class = MemberSerializer
+
     
 # for ViewSet
+
+class IsSuperUser(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user.is_superuser:
+            return True
+        else:
+            if request.method == "DELETE":
+                return False
+            
 class IssuedBookViewSet(viewsets.ModelViewSet):
-    permission_classes = (permissions.DjangoModelPermissions)
+    permission_classes = [
+        IsSuperUser,
+        permissions.DjangoModelPermissions]
     queryset = IssuedBook.objects.all()
     serializer_class = IssuedBookSerializer
+    
     
     @action(methods=['get'],detail=True)
     def book(self,request,pk=None):
@@ -75,6 +80,7 @@ class BookViewSet(mixins.CreateModelMixin,
                    mixins.RetrieveModelMixin,
                    mixins.UpdateModelMixin,
                    mixins.DestroyModelMixin,
+                   mixins.ListModelMixin,
                    viewsets.GenericViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer

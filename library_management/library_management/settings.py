@@ -43,11 +43,15 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'library',
     'utils',
+    'userauth',
     'crispy_forms',
     'crispy_bootstrap5'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+LOGIN_REDIRECT_URL = '/library/books/'  
+LOGOUT_REDIRECT_URL = '/userauth/signin/'
 
 
 MIDDLEWARE = [

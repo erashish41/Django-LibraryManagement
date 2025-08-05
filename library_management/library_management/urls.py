@@ -19,10 +19,9 @@ from django.urls import path, include
 from django.http import HttpResponse
 
 urlpatterns = [
-    path('', lambda request: HttpResponse("Welcome Home! You are logged in.")),
 
     path('admin/', admin.site.urls),
-    path('userauth/',include('userauth.urls')),
+    path('',include('userauth.urls')),
     path('library/', include('library.urls')),
     
     path('api-auth/', include('rest_framework.urls', namespace= 'rest_framework')),

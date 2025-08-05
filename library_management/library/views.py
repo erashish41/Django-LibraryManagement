@@ -17,6 +17,10 @@ class IssuedBookListView(LoginRequiredMixin,SuccessMessageMixin,CreateView,ListV
     form_class = IssuedBookCreateForm
     success_url = reverse_lazy('issuedbooks_list')
     success_message = "New Issued Books successfully added"
+    ordering = ['issue_date']
+    
+    def get_queryset(self):
+        return IssuedBook.objects.all().order_by('book__title')
     
 class IssuedBookDetailView(LoginRequiredMixin,SuccessMessageMixin,DetailView,UpdateView):
     model = IssuedBook
@@ -44,7 +48,7 @@ class BookListView(LoginRequiredMixin,SuccessMessageMixin,CreateView,ListView):
     paginate_by = 10
     success_url = reverse_lazy('book_list')
     success_message = "New Book successfully added"
-    
+    ordering = ['title']
     
 class BookDetailView(LoginRequiredMixin,SuccessMessageMixin,DetailView, UpdateView):
     model = Book
@@ -74,7 +78,7 @@ class LibraryBranchListView(LoginRequiredMixin,SuccessMessageMixin,CreateView,Li
     form_class = LibraryBranchCreateForm
     success_url = reverse_lazy('branch_list')
     success_message = "New Library Branch successfully added"
-    
+    ordering = ['city']
 
 class LibraryBranchDetailView(LoginRequiredMixin,SuccessMessageMixin,DetailView,UpdateView):
     model = LibraryBranch
@@ -101,7 +105,7 @@ class MemberListView(LoginRequiredMixin,SuccessMessageMixin,CreateView,ListView)
     form_class = MemberCreateForm
     success_url = reverse_lazy('member_list')
     success_message = "New Member successfully added"
-    
+    ordering = ['user']
 class MemberDetailView(LoginRequiredMixin,SuccessMessageMixin,DetailView,UpdateView):
     model = Member
     form_class = MemberCreateForm
@@ -126,8 +130,6 @@ class MemberDeleteView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
     success_url = reverse_lazy('member_list')
     success_message = "Member successfully deleted"
     
-        
-    
 
 class IssuedBookDeleteView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
     model = IssuedBook
@@ -143,7 +145,7 @@ class AuthorListView(LoginRequiredMixin,SuccessMessageMixin,CreateView,ListView)
     form_class = AuthorCreateForm
     success_url = reverse_lazy('authors_list')
     success_message = "New Author successfully added"
-    
+    ordering = ['name']
     
 class AuthorDetailView(LoginRequiredMixin,SuccessMessageMixin,DetailView,UpdateView):
     model = Author
@@ -180,7 +182,7 @@ class PublisherListView(LoginRequiredMixin,SuccessMessageMixin,CreateView,ListVi
     form_class = PublisherCreateForm
     success_url = reverse_lazy('publisher_list')
     success_message = "New Publisher successfully added"
-    
+    ordering = ['name']
     
 class PublisherDetailView(LoginRequiredMixin,SuccessMessageMixin,DetailView,UpdateView):
     model = Publisher

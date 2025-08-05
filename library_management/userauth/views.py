@@ -14,8 +14,13 @@ class UserRegisterView(SuccessMessageMixin, CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        print('USER >>>', user)
+        print("user test", user)
         return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        messages.error(self.request, "Something went wrong, Please try again")
+        print(">>>>>>>",form.errors)
+        return super().form_invalid(form)
 
 class UserLoginView(SuccessMessageMixin, LoginView):
     template_name = 'userauth/sign_in.html'

@@ -8,7 +8,7 @@
 
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Add new Book
+         ➕ Add New Book
     </button>
 
     <!-- Modal -->
@@ -38,20 +38,20 @@
             <div class="col-md-3">
                 <div class="card shadow mb-4 border-primary" style="width: 100%">
                     <div class="card-body">
-                        <h5 class="card-title">title- {{book.title}}</h5>
-                        <p class="card-text">publisher- {{book.publisher.name}}</p>
-                        <p class="card-text">branch- {{book.library_branch.city.city_name}}</p>
+                        <h5 class="card-title text-info fw-bold"><strong class="text-black">Title- </strong>{{book.title}}</h5>
+                        <p class="card-text"><strong>Publisher- </strong> {{book.publisher.name}}</p>
+                        <p class="card-text"><strong>Branch-</strong> {{book.library_branch.city.city_name}}</p>
                         {% for author in book.author.all %}
                             {% if forloop.first %} 
-                                <p class="card-text">author_name- {{author.name}}</p>
+                                <p class="card-text"><strong>Author_name-</strong> {{author.name}}</p>
                             {% endif %}
                         {% endfor %}
 
                         <div class="d-flex gap-2">
-                            <a href="{% url 'book_detail' book.pk %}" type="button" class="btn btn-primary">View details</a>
+                            <a href="{% url 'book_detail' book.pk %}" type="button" class="btn btn-sm btn-outline-primary">View details</a>
                             <form method="post" action="{% url 'book_delete' book.pk %}">
                                 {% csrf_token %}
-                                <button class="btn btn-danger" type="submit">Delete</button>
+                                <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
                             </form>
                         </div>
                         

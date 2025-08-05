@@ -7,8 +7,8 @@
         <h1 class="text-center">Book details</h1>
         
         <div class="row">
-            <div class="ol">
-                <div class="card shadow" style="width: 100%; height: 100%;">
+            <div class="col">
+                <div class="card shadow" style="width: 75%; height: 100%;">
                     <div class="card-body">
                         <h5 class="card-title">title- {{book.title}}</h5>
                         <p class="card-text">isbn- {{book.isbn}}</p>
@@ -19,14 +19,14 @@
                         {% endfor %}
 
                         <div class="d-flex gap-2">
-                            <a href="{% url 'book_list' %}" class="btn btn-success">go back</a>
+                            <a href="{% url 'book_list' %}" class="btn btn-sm btn-success">go back</a>
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 updated this Book
                             </button>
                             <form method="post" action="{% url 'book_delete' book.pk %}">
                                 {% csrf_token %}
-                                <button class="btn btn-danger" type="submit">Delete</button>
+                                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
                             </form>
 
                             

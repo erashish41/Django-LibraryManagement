@@ -14,32 +14,55 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
+            
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-link" href="{% url 'branch_list' %}">Library Branches</a>
-                <a class="nav-link" href="{% url 'member_list' %}">Members</a>
-                <a class="nav-link" href="{% url 'issuedbooks_list' %}">Issued Books</a>
-                <a class="nav-link" href="{% url 'book_list' %}">Books</a>
-                <a class="nav-link" href="{% url 'authors_list' %}">Authors</a>
-                <a class="nav-link" href="{% url 'publisher_list' %}">Publishers</a>
-            </div>
+                {% if user.is_authenticated %}
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'branch_list' %}">Library Branches</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'member_list' %}">Members</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'issuedbooks_list' %}">Issued Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'book_list' %}">Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'authors_list' %}">Authors</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'publisher_list' %}">Publishers</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link">{{user.username}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <form action="{% url 'signout' %}" method="post">
+                                {% csrf_token %}
+                                <button class="btn btn-danger">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                {% endif %}
             </div>
         </div>
     </nav>
 
-    <div class="container m-3" style="width: 95%; padding-top: 40px;">
+    <div class="container" style="width: 50%; height: 100px;">
         {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                <div class="d-flex">
-                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                    <button type="button" class="btn-close"></button>
-                {% endfor %}
+            {% for message in messages%}
+                <div class="alert alert-{{message.tags }} alert-dismissible fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-            </ul>
+            {% endfor %}
         {% endif %}
     </div>
-
     
 
 

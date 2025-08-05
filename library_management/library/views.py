@@ -5,10 +5,11 @@ from library.form import (BookCreateForm, LibraryBranchCreateForm, MemberCreateF
                           AuthorCreateForm,PublisherCreateForm)
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
-class IssuedBookListView(SuccessMessageMixin,CreateView,ListView):
+class IssuedBookListView(LoginRequiredMixin,SuccessMessageMixin,CreateView,ListView):
     model = IssuedBook
     template_name = 'issuedbooks/issued_book_list.html'
     context_object_name = 'issuedbooks'
@@ -17,7 +18,7 @@ class IssuedBookListView(SuccessMessageMixin,CreateView,ListView):
     success_url = reverse_lazy('issuedbooks_list')
     success_message = "New Issued Books successfully added"
     
-class IssuedBookDetailView(SuccessMessageMixin,DetailView,UpdateView):
+class IssuedBookDetailView(LoginRequiredMixin,SuccessMessageMixin,DetailView,UpdateView):
     model = IssuedBook
     form_class = IssuedBookCreateForm
     context_object_name = 'issuedbook'
@@ -35,7 +36,7 @@ class IssuedBookDetailView(SuccessMessageMixin,DetailView,UpdateView):
             context['form'] = form
         return context
     
-class BookListView(SuccessMessageMixin,CreateView,ListView):
+class BookListView(LoginRequiredMixin,SuccessMessageMixin,CreateView,ListView):
     model = Book
     form_class = BookCreateForm
     template_name = 'books/book_list.html'
@@ -45,7 +46,7 @@ class BookListView(SuccessMessageMixin,CreateView,ListView):
     success_message = "New Book successfully added"
     
     
-class BookDetailView(SuccessMessageMixin,DetailView, UpdateView):
+class BookDetailView(LoginRequiredMixin,SuccessMessageMixin,DetailView, UpdateView):
     model = Book
     form_class = BookCreateForm
     template_name = 'books/book_detail.html'
@@ -59,13 +60,13 @@ class BookDetailView(SuccessMessageMixin,DetailView, UpdateView):
         return reverse_lazy('book_detail',kwargs={'pk':self.object.pk})
     
     
-class BookDeleteView(SuccessMessageMixin,DeleteView):
+class BookDeleteView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
     model = Book
     success_url = reverse_lazy('book_list')
     success_message = 'Book successfully deleted'
     
     
-class LibraryBranchListView(SuccessMessageMixin,CreateView,ListView):
+class LibraryBranchListView(LoginRequiredMixin,SuccessMessageMixin,CreateView,ListView):
     model = LibraryBranch
     template_name = 'branches/library_branches_list.html'
     context_object_name = 'branches'
@@ -75,7 +76,7 @@ class LibraryBranchListView(SuccessMessageMixin,CreateView,ListView):
     success_message = "New Library Branch successfully added"
     
 
-class LibraryBranchDetailView(SuccessMessageMixin,DetailView,UpdateView):
+class LibraryBranchDetailView(LoginRequiredMixin,SuccessMessageMixin,DetailView,UpdateView):
     model = LibraryBranch
     form_class = LibraryBranchCreateForm
     template_name = 'branches/library_branch_detail.html'
@@ -86,13 +87,13 @@ class LibraryBranchDetailView(SuccessMessageMixin,DetailView,UpdateView):
     #     return reverse_lazy('branch_list',kwargs = {'pk': self.object.pk})
     
     
-class LibraryBranchDeleteView(SuccessMessageMixin,DeleteView):
+class LibraryBranchDeleteView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
     model = LibraryBranch
     success_url = reverse_lazy('branch_list')
     success_message = 'Library Branch successfully deleted'
 
     
-class MemberListView(SuccessMessageMixin,CreateView,ListView):
+class MemberListView(LoginRequiredMixin,SuccessMessageMixin,CreateView,ListView):
     model = Member
     template_name = 'members/member_list.html'
     context_object_name = 'members'
@@ -101,7 +102,7 @@ class MemberListView(SuccessMessageMixin,CreateView,ListView):
     success_url = reverse_lazy('member_list')
     success_message = "New Member successfully added"
     
-class MemberDetailView(SuccessMessageMixin,DetailView,UpdateView):
+class MemberDetailView(LoginRequiredMixin,SuccessMessageMixin,DetailView,UpdateView):
     model = Member
     form_class = MemberCreateForm
     template_name = 'members/member_detail.html'
@@ -120,7 +121,7 @@ class MemberDetailView(SuccessMessageMixin,DetailView,UpdateView):
         return context
     
     
-class MemberDeleteView(SuccessMessageMixin,DeleteView):
+class MemberDeleteView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
     model = Member
     success_url = reverse_lazy('member_list')
     success_message = "Member successfully deleted"
@@ -128,13 +129,13 @@ class MemberDeleteView(SuccessMessageMixin,DeleteView):
         
     
 
-class IssuedBookDeleteView(SuccessMessageMixin,DeleteView):
+class IssuedBookDeleteView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
     model = IssuedBook
     success_url = reverse_lazy('issuedbooks_list')
     success_message = "Issued Books successfully deleted"
     
     
-class AuthorListView(SuccessMessageMixin,CreateView,ListView):
+class AuthorListView(LoginRequiredMixin,SuccessMessageMixin,CreateView,ListView):
     model = Author
     template_name = 'authors/author_list.html'
     context_object_name = 'authors'
@@ -144,7 +145,7 @@ class AuthorListView(SuccessMessageMixin,CreateView,ListView):
     success_message = "New Author successfully added"
     
     
-class AuthorDetailView(SuccessMessageMixin,DetailView,UpdateView):
+class AuthorDetailView(LoginRequiredMixin,SuccessMessageMixin,DetailView,UpdateView):
     model = Author
     form_class = AuthorCreateForm
     context_object_name = 'author'
@@ -165,13 +166,13 @@ class AuthorDetailView(SuccessMessageMixin,DetailView,UpdateView):
         return context
     
 
-class AuthorDeleteView(SuccessMessageMixin,DeleteView):
+class AuthorDeleteView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
     model = Author
     success_url = reverse_lazy('authors_list')
     success_message = "Author successfully deleted"
     
     
-class PublisherListView(SuccessMessageMixin,CreateView,ListView):
+class PublisherListView(LoginRequiredMixin,SuccessMessageMixin,CreateView,ListView):
     model = Publisher
     template_name = 'publishers/publisher_list.html'
     context_object_name = 'publishers'
@@ -181,7 +182,7 @@ class PublisherListView(SuccessMessageMixin,CreateView,ListView):
     success_message = "New Publisher successfully added"
     
     
-class PublisherDetailView(SuccessMessageMixin,DetailView,UpdateView):
+class PublisherDetailView(LoginRequiredMixin,SuccessMessageMixin,DetailView,UpdateView):
     model = Publisher
     form_class = PublisherCreateForm
     context_object_name = 'publisher'
@@ -199,7 +200,7 @@ class PublisherDetailView(SuccessMessageMixin,DetailView,UpdateView):
             context['form'] = form
         return context
     
-class PublisherDeleteView(SuccessMessageMixin,DeleteView):
+class PublisherDeleteView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
     model = Publisher
     success_url = reverse_lazy('publisher_list')
     success_message = "Publisher successfully deleted"

@@ -18,6 +18,16 @@
                             <p class="card-text">author- {{author.name}}</p>
                         {% endfor %}
 
+                        <h4>Issued Records:</h4>
+                        <ul>
+                            {% for issue in issued_records %}
+                                <li>Issued to: {{ issue.member.user.username }} on {{ issue.issue_date }}</li>
+                            {% empty %}
+                                <li>This book has not been issued.</li>
+                            {% endfor %}
+                        </ul>
+
+
                         <div class="d-flex gap-2">
                             <a href="{% url 'book_list' %}" class="btn btn-sm btn-success">go back</a>
                             <!-- Button trigger modal -->
